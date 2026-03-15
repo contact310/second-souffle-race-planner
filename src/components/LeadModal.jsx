@@ -13,12 +13,21 @@ export default function LeadModal({ onSubmit }) {
     return e
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
       return
+    }
+    try {
+      await fetch('https://hook.eu2.make.com/9wn2m6sngmnhn5974z2rnrekkg9lt8ty', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(lead)
+      })
+    } catch (_) {
+      // On continue même si le webhook échoue
     }
     onSubmit(lead)
   }
