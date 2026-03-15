@@ -47,7 +47,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#0F0F0F] text-white">
       {currentView === 'home' && (
-        <HomePage onStart={() => setCurrentView('form')} />
+        <HomePage onStart={(distance) => {
+          if (distance) setFormData(prev => ({ ...prev, distance }))
+          setCurrentView('form')
+        }} />
       )}
       {currentView === 'form' && (
         <FormView
