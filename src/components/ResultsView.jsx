@@ -1,14 +1,26 @@
+import { useEffect } from 'react'
+import Logo from './Logo'
 import SummaryCards from './SummaryCards'
 import SectionCard from './SectionCard'
 import PaceRange from './PaceRange'
 import FuelingPlan from './FuelingPlan'
 
 export default function ResultsView({ plan, onRecalculate }) {
+  useEffect(() => {
+    const existing = document.querySelector('script[src="https://app.iclosed.io/assets/widget.js"]')
+    if (!existing) {
+      const script = document.createElement('script')
+      script.src = 'https://app.iclosed.io/assets/widget.js'
+      script.async = true
+      document.body.appendChild(script)
+    }
+  }, [])
+
   return (
     <div className="min-h-screen px-4 py-10">
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
-          <span className="text-xl font-bold" style={{ color: '#6A00FF' }}>Second Souffle</span>
+          <Logo />
         </div>
 
         {/* Bloc 1 — Résumé */}
@@ -42,19 +54,17 @@ export default function ResultsView({ plan, onRecalculate }) {
           <p className="text-[#A0A0A0] mb-6 leading-relaxed">
             Un coach Second Souffle peut construire ton plan d'entraînement complet pour atteindre ce chrono — et t'accompagner jusqu'au jour J.
           </p>
-          <a
-            href="#"
-            className="inline-block w-full text-center py-4 text-lg font-bold text-white rounded-lg transition-all duration-200 mb-4"
-            style={{ backgroundColor: '#6A00FF' }}
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = '#5500CC'}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = '#6A00FF'}
-          >
-            Parler à un coach →
-          </a>
-          <p className="text-center text-[#A0A0A0] text-sm mb-4">Sans engagement. 30 minutes.</p>
+
+          <div
+            className="iclosed-widget"
+            data-url="https://app.iclosed.io/e/runninglab/diagnostic-running-lab-1"
+            title="Diagnostic Second Souffle 👟"
+            style={{ width: '100%', height: '620px' }}
+          />
+
           <button
             onClick={onRecalculate}
-            className="w-full text-center text-[#A0A0A0] hover:text-white text-sm transition-colors duration-200 py-2"
+            className="w-full text-center text-[#A0A0A0] hover:text-white text-sm transition-colors duration-200 py-2 mt-4"
           >
             ← Recalculer avec d'autres données
           </button>

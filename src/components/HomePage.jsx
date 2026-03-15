@@ -1,9 +1,11 @@
+import Logo from './Logo'
+
 export default function HomePage({ onStart }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
       <div className="max-w-2xl w-full text-center">
-        <div className="mb-8">
-          <span className="text-3xl font-bold" style={{ color: '#6A00FF' }}>Second Souffle</span>
+        <div className="mb-8 flex justify-center">
+          <Logo style={{ height: '52px' }} />
         </div>
         <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
           Connais-tu vraiment tes allures pour le jour J ?

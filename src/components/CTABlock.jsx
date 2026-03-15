@@ -1,4 +1,16 @@
+import { useEffect } from 'react'
+
 export default function CTABlock({ onBack, backLabel = '← Retour' }) {
+  useEffect(() => {
+    const existing = document.querySelector('script[src="https://app.iclosed.io/assets/widget.js"]')
+    if (!existing) {
+      const script = document.createElement('script')
+      script.src = 'https://app.iclosed.io/assets/widget.js'
+      script.async = true
+      document.body.appendChild(script)
+    }
+  }, [])
+
   return (
     <div
       className="rounded-xl p-6 md:p-8 mt-8"
@@ -13,20 +25,18 @@ export default function CTABlock({ onBack, backLabel = '← Retour' }) {
       <p className="text-[#A0A0A0] mb-6 leading-relaxed">
         En 30 minutes d'appel, nos coachs analysent ton profil et te donnent tes vraies données — et ton plan de course complet.
       </p>
-      <a
-        href="#"
-        className="inline-block w-full text-center py-4 text-lg font-bold text-white rounded-lg transition-all duration-200 mb-4"
-        style={{ backgroundColor: '#6A00FF' }}
-        onMouseEnter={e => e.currentTarget.style.backgroundColor = '#5500CC'}
-        onMouseLeave={e => e.currentTarget.style.backgroundColor = '#6A00FF'}
-      >
-        Réserver mon appel gratuit →
-      </a>
-      <p className="text-center text-[#A0A0A0] text-sm mb-4">Sans engagement. Gratuit. 30 minutes.</p>
+
+      <div
+        className="iclosed-widget"
+        data-url="https://app.iclosed.io/e/runninglab/diagnostic-running-lab-1"
+        title="Diagnostic Second Souffle 👟"
+        style={{ width: '100%', height: '620px' }}
+      />
+
       {onBack && (
         <button
           onClick={onBack}
-          className="w-full text-center text-[#A0A0A0] hover:text-white text-sm transition-colors duration-200 py-2"
+          className="w-full text-center text-[#A0A0A0] hover:text-white text-sm transition-colors duration-200 py-2 mt-4"
         >
           {backLabel}
         </button>

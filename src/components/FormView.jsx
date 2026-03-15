@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Logo from './Logo'
 
 const DISTANCE_OPTIONS = [
   { value: '10km', label: '10 kilomètres' },
@@ -59,9 +60,14 @@ export default function FormView({ initialData, onSubmit, onBack }) {
           ← Retour
         </button>
         <div className="mb-8">
-          <span className="text-xl font-bold" style={{ color: '#6A00FF' }}>Second Souffle</span>
+          <Logo className="mb-4" />
           <h2 className="text-2xl font-bold text-white mt-2">Tes données physiologiques</h2>
           <p className="text-[#A0A0A0] mt-1 text-sm">Remplis les champs pour obtenir ton plan personnalisé.</p>
+          <p className="text-[#E63946] mt-2 text-sm font-semibold">
+            Si tu ne connais pas une valeur, clique sur{' '}
+            <span className="text-[#F4804A] font-bold">"Je ne connais pas"</span>{' '}
+            en orange sous le champ correspondant.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">

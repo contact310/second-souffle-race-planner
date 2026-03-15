@@ -3,6 +3,7 @@ import HomePage from './components/HomePage'
 import FormView from './components/FormView'
 import AlertView from './components/AlertView'
 import ResultsView from './components/ResultsView'
+import LeadModal from './components/LeadModal'
 import { calculateRacePlan } from './utils/calculations'
 
 export default function App() {
@@ -14,9 +15,18 @@ export default function App() {
     profil: 'intermediaire'
   })
   const [racePlan, setRacePlan] = useState(null)
+  const [pendingData, setPendingData] = useState(null)
+  const [showModal, setShowModal] = useState(false)
 
-  const handleSubmit = (data) => {
+  const handleFormSubmit = (data) => {
     setFormData(data)
+    setPendingData(data)
+    setShowModal(true)
+  }
+
+  const handleLeadSubmit = () => {
+    setShowModal(false)
+    const data = pendingData
     const hasMissingData =
       !data.fcmax || !data.vma ||
       Number(data.fcmax) === 0 || Number(data.vma) === 0
@@ -42,7 +52,7 @@ export default function App() {
       {currentView === 'form' && (
         <FormView
           initialData={formData}
-          onSubmit={handleSubmit}
+          onSubmit={handleFormSubmit}
           onBack={() => setCurrentView('home')}
         />
       )}
@@ -58,6 +68,8 @@ export default function App() {
           onRecalculate={() => setCurrentView('form')}
         />
       )}
+
+      {showModal && <LeadModal onSubmit={handleLeadSubmit} />}
     </div>
   )
 }
